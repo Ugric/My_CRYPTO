@@ -1,18 +1,30 @@
 from RSA import RSA
 import json
 
-choose = int(input('1) make keys\n2) encrypt\n3) decrypt\n\nchoose: '))
-if choose == 1:
-    crypto = RSA()
-    json.dump(crypto.toObj(), open('keys.json', 'w'))
-    print('saved to keys.json')
-else:
-    crypto = RSA(
-        json.load(open('keys.json', 'r'))
-    )
-    if choose == 2:
-        message = input('message: ')
-        print('encrypted:', crypto.encrypt_str(message))
+while True:
+    choose = int(input('1) make keys\n2) encrypt\n3) decrypt\n\nchoose: '))
+    if choose == 1:
+        crypto = RSA()
+        print('keys:')
+        print('\nprivate key (DON\'T GIVE AWAY!):', crypto.priv)
+        print('\npublic key (anyone can have this):', crypto.pub)
+        print('\nmod (anyone can have this):', crypto.mod)
+    elif choose == 2:
+        crypto = RSA(
+            {
+                'pub': input('\npublic key: '),
+                'mod': input('\nmod: ')
+            }
+        )
+        message = input('\nmessage: ')
+        print('\nencrypted:', crypto.encrypt_str(message))
     else:
-        encrypted = input('encrypted: ')
-        print('decrypted:', crypto.decrypt_to_str(encrypted))
+        crypto = RSA(
+            {
+                'priv': input('\nprivate key: '),
+                'mod': input('\nmod: ')
+            }
+        )
+        encrypted = input('\nencrypted: ')
+        print('\ndecrypted:', crypto.decrypt_to_str(encrypted))
+    print()

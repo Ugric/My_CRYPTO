@@ -48,13 +48,7 @@ class RSA:
 
     def rand(self): return random.randint(self.start, self.end)
 
-    def encrypt(self, num):
-        return hex(pow(num, int(self.pub, 0), int(self.mod, 0)))
-
-    def decrypt(self, num):
-        return pow(int(num, 0), int(self.priv, 0), int(self.mod, 0))
-
-    def encrypt_str(self, string):
+    def string_to_int(self, string):
         output = ['1']
         for char in string:
             unicodedstr = str(ord(char))
@@ -66,14 +60,26 @@ class RSA:
                 else:
                     unicodedoutput.insert(0, '0')
             output.extend(unicodedoutput)
-        return self.encrypt(int(''.join(output)))
+        return int(''.join(output))
 
-    def decrypt_to_str(self, hex_str):
-        decrypted = str(self.decrypt(hex_str))[1:]
+    def int_to_string(self, num):
+        string = str(num)[1:]
         output = []
-        for i in range(0, len(decrypted), 3):
-            output.append(chr(int(decrypted[i:i+3])))
+        for i in range(0, len(string), 3):
+            output.append(chr(int(string[i:i+3])))
         return ''.join(output)
+
+    def encrypt(self, num):
+        return hex(pow(num, int(self.pub, 0), int(self.mod, 0)))
+
+    def decrypt(self, num):
+        return pow(int(num, 0), int(self.priv, 0), int(self.mod, 0))
+
+    def encrypt_str(self, string):
+        return self.encrypt(self.string_to_int(string))
+
+    def decrypt_to_str(self, hex):
+        return self.int_to_string(self.decrypt(hex))
 
     def __str__(self):
         return f'PUBLIC:\n{self.pub}\nPRIVATE:\n{self.pub}\nMODULOS:\n{self.mod}'
