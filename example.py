@@ -1,5 +1,4 @@
-from RSA import RSA
-import json
+from My_RSA import RSA
 
 while True:
     choose = int(input('1) make keys\n2) encrypt\n3) decrypt\n\nchoose: '))
