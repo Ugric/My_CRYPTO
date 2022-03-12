@@ -1,4 +1,4 @@
-# My RSA
+# My CRYPTO
 
 a mini project that allows you to encrypt and decrypt messages using RSA.
 
