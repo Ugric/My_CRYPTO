@@ -1,4 +1,4 @@
-from My_RSA import RSA
+from CRYPTO import RSA
 
 while True:
     choose = int(input('1) make keys\n2) encrypt\n3) decrypt\n\nchoose: '))
